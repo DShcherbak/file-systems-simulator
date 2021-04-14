@@ -135,6 +135,22 @@ public class ls
    * @param name the name to print
    * @param stat the stat containing the file's information
    */
+
+  private static String modeToOctalNumber(int mode) {
+    StringBuffer s = new StringBuffer() ;
+    for (int i = 0; i < 3; ++i) {
+      int cur_bit = 0;
+      for (int j = 0; j < 3; ++j) {
+        cur_bit += (mode & 1) << j;
+        mode /= 2;
+
+      }
+      s.append(Integer.toString(cur_bit));
+    }
+    s.reverse();
+    return s.toString();
+  }
+
   private static void print( String name , Stat stat )
   {
     // a buffer to fill with a line of output
@@ -150,12 +166,35 @@ public class ls
     s.append( t ) ;
     s.append( ' ' ) ;
 
+    t = Integer.toString( stat.getGid() ) ;
+    for( int i = 0 ; i < 5 - t.length() ; i ++ )
+      s.append( ' ' ) ;
+    s.append( t ) ;
+    s.append( ' ' ) ;
+
+    t = Integer.toString( stat.getUid() ) ;
+    for( int i = 0 ; i < 5 - t.length() ; i ++ )
+      s.append( ' ' ) ;
+    s.append( t ) ;
+    s.append( ' ' ) ;
+
+    int mode = stat.getMode();
+
+    t = modeToOctalNumber(mode);
+    for( int i = 0 ; i < 5 - t.length() ; i ++ )
+      s.append( ' ' ) ;
+    s.append( t ) ;
+    s.append( ' ' ) ;
+
     // append the size in a field of 10
     t = Integer.toString( stat.getSize() ) ;
     for( int i = 0 ; i < 10 - t.length() ; i ++ )
       s.append( ' ' ) ;
     s.append( t ) ;
     s.append( ' ' ) ;
+
+
+
 
     // append the name
     s.append( name ) ;
