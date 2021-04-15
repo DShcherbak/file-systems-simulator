@@ -408,8 +408,7 @@ public class Kernel
    * an exception to be thrown
    */
   public static int creat( String pathname , short mode )
-    throws Exception
-  {
+    throws Exception {
     // get the full path
     String fullPath = getFullPath( pathname ) ;
 
