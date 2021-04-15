@@ -1492,6 +1492,7 @@ Some internal methods.
     }
 
     // if user isn't alowed to read directory, give an error
+    // if user isn't alowed to read directory, give an error
     // ??? tbd
     // return (EACCES) if a needed directory is not readable
 
