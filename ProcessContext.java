@@ -53,6 +53,11 @@ public class ProcessContext
 
   /**
    * The umask for the process.
+   * The bits that are set mean
+   * permissions we DO NOT want to give as a default.
+   * User permissions are stored in following order:
+   * owner-group-everyone
+   * permissions include read-write-execute.
    */
   private short umask = 0000 ;
 
