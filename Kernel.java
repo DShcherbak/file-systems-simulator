@@ -465,7 +465,7 @@ public class Kernel
       // return (EACCES) if the file does not exist and the directory
       // in which it is to be created is not writable
 
-      currIndexNode.setMode( mode&(~process.getUmask()) ) ;
+      currIndexNode.setMode((short) ((short)mode&(~process.getUmask()))) ;
       currIndexNode.setNlink( (short)1 ) ;
 
       // allocate the next available inode from the file system
@@ -1007,7 +1007,7 @@ public class Kernel
 
     //just to make sure
     short umaskBitsFilter = (1 << 9) - 1;
-    newUmask = (newUmask & umaskBitsFilter);
+    newUmask = (short) (newUmask&umaskBitsFilter);
 
     process.setUmask(newUmask);
 
