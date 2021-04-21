@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: Block.java,v 1.4 2001/10/07 23:48:55 rayo Exp $
  */
 

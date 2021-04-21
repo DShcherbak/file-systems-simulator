@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: SuperBlock.java,v 1.9 2001/10/07 23:48:55 rayo Exp $
  */
 

@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: mkfs.java,v 1.11 2001/10/07 23:48:55 rayo Exp $
  */
 
@@ -255,13 +255,13 @@ public class mkfs
     rootIndexNode.setNlink( (short)3 ) ;
     // write the rootIndexNode to the rootInodeBlock
     rootIndexNode.write( rootInodeBlock.bytes , 
-      ( FileSystem.ROOT_INDEX_NODE_NUMBER * IndexNode.INDEX_NODE_SIZE ) % block_size ) ;
+      ( src.FileSystem.ROOT_INDEX_NODE_NUMBER * IndexNode.INDEX_NODE_SIZE ) % block_size ) ;
 
     // ??? write the rest of the inodes in the first block
 
     // write the first inode block
     file.seek( inodeBlockOffset * block_size + 
-      FileSystem.ROOT_INDEX_NODE_NUMBER * IndexNode.INDEX_NODE_SIZE ) ;
+      src.FileSystem.ROOT_INDEX_NODE_NUMBER * IndexNode.INDEX_NODE_SIZE ) ;
     rootInodeBlock.write( file ) ;
 
     // ??? write the rest of the inode blocks
@@ -273,9 +273,9 @@ public class mkfs
     // one for itself ("."), and one for its parent ("..").
     // Both of these reference the root inode.
     DirectoryEntry itself = 
-      new DirectoryEntry( FileSystem.ROOT_INDEX_NODE_NUMBER , "." ) ;
+      new DirectoryEntry( src.FileSystem.ROOT_INDEX_NODE_NUMBER , "." ) ;
     DirectoryEntry parent = 
-      new DirectoryEntry( FileSystem.ROOT_INDEX_NODE_NUMBER , ".." ) ;
+      new DirectoryEntry( src.FileSystem.ROOT_INDEX_NODE_NUMBER , ".." ) ;
 
     // write the root directory entries to the root directory block
     itself.write( rootDirectoryBlock.bytes , 0 ) ;
