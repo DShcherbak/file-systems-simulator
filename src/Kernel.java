@@ -408,8 +408,7 @@ public class Kernel
    * an exception to be thrown
    */
   public static int creat( String pathname , short mode )
-    throws Exception
-  {
+    throws Exception {
     // get the full path
     String fullPath = getFullPath( pathname ) ;
 
@@ -975,7 +974,7 @@ public class Kernel
 
     // find the index node
     IndexNode indexNode = new IndexNode() ;
-    short indexNodeNumber = findIndexNode( path , indexNode ) ; 
+    short indexNodeNumber = findIndexNode( path , indexNode ) ;
     if( indexNodeNumber < 0 )
     {
       // return ENOENT
@@ -1110,6 +1109,39 @@ public class Kernel
 
     // return the count of bytes written
     return writeCount ;
+  }
+
+  private static boolean canChangeOwner(IndexNode indexNode, int owner){
+    return owner >= 0;
+  }
+
+  private static boolean canChangeGroup(IndexNode indexNode, int group){
+    return group >= 0;
+  }
+
+  public static int chown(String pathname, int owner, int group)
+          throws Exception
+  {
+
+    String fullPath = getFullPath( pathname ) ;
+
+    IndexNode indexNode = new IndexNode() ;
+    short indexNodeNumber = findIndexNode( fullPath , indexNode ) ;
+    if( indexNodeNumber < 0 )
+      return -1 ;
+    boolean can_change_uid = canChangeOwner(indexNode, owner);
+    boolean can_change_gid = canChangeGroup(indexNode, group);
+    if(can_change_uid){
+      short owner_id = (short) owner;
+      indexNode.setUid(owner_id);
+    }
+    if(can_change_gid){
+      short group_id = (short) group;
+      indexNode.setGid(group_id);
+    }
+
+    openFileSystems[ ROOT_FILE_SYSTEM ].writeIndexNode(indexNode, indexNodeNumber);
+    return 0;
   }
 
   /**

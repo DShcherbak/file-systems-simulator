@@ -49,6 +49,7 @@ public class ls
       // stat the name to get information about the file or directory
       Stat stat = new Stat() ;
       status = Kernel.stat( name , stat ) ;
+      System.out.println("" + stat.getUid());
       if( status < 0 )
       {
         Kernel.perror( PROGRAM_NAME ) ;
