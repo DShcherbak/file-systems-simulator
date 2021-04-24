@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: FileSystem.java,v 1.7 2001/10/07 23:48:55 rayo Exp $
  */
 

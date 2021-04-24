@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: IndexNode.java,v 1.11 2001/09/28 13:18:58 rayo Exp $
  */
 
