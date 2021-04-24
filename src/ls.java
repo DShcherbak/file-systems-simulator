@@ -1,4 +1,4 @@
-package src;/*
+/*
  * $Id: ls.java,v 1.6 2001/10/12 02:14:31 rayo Exp $
  */
 

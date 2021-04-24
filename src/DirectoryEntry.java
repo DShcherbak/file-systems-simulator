@@ -1,4 +1,4 @@
-package src;/*
+/*
  * $Id: DirectoryEntry.java,v 1.5 2001/10/08 01:15:46 rayo Exp $
  */
 
