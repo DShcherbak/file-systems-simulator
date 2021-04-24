@@ -1,4 +1,4 @@
-package src;/*
+/*
  * $Id: Kernel.java,v 1.23 2001/10/08 01:15:46 rayo Exp $
  * 456789012345678901234567890123456789012345678901234567890123456789012
  */
@@ -464,7 +464,7 @@ public class Kernel
       // return (EACCES) if the file does not exist and the directory
       // in which it is to be created is not writable
 
-      currIndexNode.setMode((short) ((short)mode&(~process.getUmask()))) ;
+      currIndexNode.setMode( mode ) ;
       currIndexNode.setNlink( (short)1 ) ;
 
       // allocate the next available inode from the file system
@@ -991,29 +991,6 @@ public class Kernel
   }
 
   /**
-   * Change current process umask and return old.
-   * Simulates the unix system call:
-   *    * <pre>
-   *    *   mode_t umask(mode_t mask);
-   *    * </pre>
-   * @exception java.lang.Exception if any underlying action causes
-   * Exception to be thrown
-   */
-  public static short umask( short newUmask )
-          throws Exception
-  {
-    short prevUmask = process.getUmask();
-
-    //just to make sure
-    short umaskBitsFilter = (1 << 9) - 1;
-    newUmask = (short) (newUmask&umaskBitsFilter);
-
-    process.setUmask(newUmask);
-
-    return prevUmask;
-  }
-
-  /**
    * First commits inodes to buffers, and then buffers to disk.
    * <p>
    * Simulates unix system call:
@@ -1263,9 +1240,9 @@ to be done:
     // check to see if the name of an alternate configuration
     // file has been specified.  This can be done, for example,
     //   java -Dfilesys.conf=myfile.txt program-name parameter ...
-    String propertyFileName = System.getProperty("src/filesys.conf") ;
+    String propertyFileName = System.getProperty( "filesys.conf" ) ;
     if ( propertyFileName == null )
-      propertyFileName = "src/filesys.conf";
+      propertyFileName = "filesys.conf" ;
     Properties properties = new Properties() ;
     try
     {
