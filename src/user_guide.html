@@ -657,7 +657,7 @@ These three classes are described briefly here.  For more
 information, follow the link for the class to the <tt>javadoc</tt>
 for that class.
 <dl>
-<dt><a href="../javadoc/Kernel.html">Kernel</a></dt>
+<dt><a href="javadoc/Kernel.html">Kernel</a></dt>
 <dd>
 sets up the simulator environment and defines all the
 system calls. This class defines: the method 
@@ -672,7 +672,7 @@ fields of Kernel are static; you do not instantiate a
 Kernel object.  For examples, see any of the sample 
 programs (i.e., <tt>cat.java</tt>, <tt>cp.java</tt>, 
 <tt>ls.java</tt>, etc.)</dd>
-<dt><a href="../javadoc/Stat.html">Stat</a></dt>
+<dt><a href="javadoc/Stat.html">Stat</a></dt>
 <dd>
 is a data structure that represents information about a
 file or directory.  This intends to faithfully represent
@@ -683,7 +683,7 @@ or using JavaBean-style accessor/mutator methods (e.g.,
 objects are updated by the methods 
 <tt>Kernel.stat()</tt> and <tt>Kernel.fstat()</tt>.
 For examples, see <tt>mkdir.java</tt>.</dd>
-<dt><a href="../javadoc/DirectoryEntry.html">DirectoryEntry</a></dt>
+<dt><a href="javadoc/DirectoryEntry.html">DirectoryEntry</a></dt>
 <dd>
 is a data
 structure that represents a single record in a directory
@@ -710,7 +710,7 @@ All programs that use the File System Simulator should
 adhere to the following guidelines:
 <ul>
 <li>Invoke the method <tt><a 
-href="../javadoc/Kernel.html#initialize()">Kernel.initialize()</a></tt>
+href="javadoc/Kernel.html#initialize()">Kernel.initialize()</a></tt>
 before any other File System Simulator calls.
 <li>Use <tt>Kernel.exit()</tt> when you wish to 
 terminate processing in your program.
@@ -720,10 +720,10 @@ terminate processing in your program.
 Nearly all the system calls return -1 if an error 
 occurs.
 <li>Use <tt><a 
-href="../javadoc/Kernel.html#perror(java.lang.String)">Kernel.perror()</a></tt>
+href="javadoc/Kernel.html#perror(java.lang.String)">Kernel.perror()</a></tt> 
 to print the message associated with an error.
 <li>Use <tt><a 
-href="../javadoc/Kernel.html#getErrno()">Kernel.getErrno()</a></tt>
+href="javadoc/Kernel.html#getErrno()">Kernel.getErrno()</a></tt> 
 to determine which error occurred, if needed.  Note that in standard
 Unix programs you would reference the static process 
 variable "errno".
@@ -759,7 +759,7 @@ of these components when making a proposed enhancement.
 The following are the <em>internal</em> classes for
 the file system simulator:
 <dl>
-<dt><tt><a href="../javadoc/BitBlock.html">BitBlock</a></tt>
+<dt><tt><a href="javadoc/BitBlock.html">BitBlock</a></tt>
 <dd>is a data structure that views a device block as a
 sequence of bits.  The methods <tt>setBit()</tt>, 
 <tt>resetBit()</tt>, and <tt>isBitSet()</tt> are used 
@@ -769,7 +769,7 @@ bitmaps, and is used by the file system simulator to
 track allocated and free data blocks in the file system.
 <tt>BitBlock</tt> extends <tt>Block</tt>.
 </dd>
-<dt><tt><a href="../javadoc/Block.html">Block</a></tt>
+<dt><tt><a href="javadoc/Block.html">Block</a></tt>
 <dd>is a data structure that views a device block as a
 sequence of bytes.  The field <tt>bytes</tt> is an array
 of <tt>byte</tt>, and is directly accessible.  Included
@@ -777,7 +777,7 @@ are methods to <tt>read()</tt> and <tt>write()</tt> the
 block to a <tt>java.io.RandomAccessFile</tt>, which 
 simulate the action of reading or writing a device block.
 </dd>
-<dt><tt><a href="../javadoc/FileDescriptor.html">FileDescriptor</a></tt>
+<dt><tt><a href="javadoc/FileDescriptor.html">FileDescriptor</a></tt>
 <dd>
 is a structure and collection of methods that represent
 an open file.  It includes a number of <tt>get</tt> and
@@ -786,7 +786,7 @@ about the open file, and provides <tt>readBlock</tt>
 and <tt>writeBlock()</tt> methods for reading and writing
 the blocks of the file.
 </dd>
-<dt><tt><a href="../javadoc/FileSystem.html">FileSystem</a></tt>
+<dt><tt><a href="javadoc/FileSystem.html">FileSystem</a></tt>
 <dd>
 is a structure and collection of methods that represent
 an open (mounted) file system.  It includes a few <tt>get</tt>
@@ -799,7 +799,7 @@ to manage inodes (<tt>allocateIndexNode()</tt>).  In general,
 <tt>Kernel</tt> methods should call <tt>FileSystem</tt> 
 methods when they want to read or write data in the file system.
 </dd>
-<dt><tt><a href="../javadoc/IndexNode.html">IndexNode</a></tt>
+<dt><tt><a href="javadoc/IndexNode.html">IndexNode</a></tt>
 <dd>
 is a structure and collection of methods 
 for representing an index node.  This is 
@@ -809,7 +809,7 @@ for each of the fields in the index node.  Also included
 are <tt>read()</tt> and <tt>write()</tt> methods which
 are used to copy data to and from byte arrays (not disk files).
 </dd>
-<dt><tt><a href="../javadoc/ProcessContext.html">ProcessContext</a></tt>
+<dt><tt><a href="javadoc/ProcessContext.html">ProcessContext</a></tt>
 <dd>
 is a structure and collection of methods to represent 
 a process.  This is where the simulator stores the 
@@ -817,7 +817,7 @@ uid, gid, umask, dir, and other information for the
 current process.  It includes <tt>get</tt> and <tt>set</tt>
 methods for each of the fields in a process.
 </dd>
-<dt><tt><a href="../javadoc/SuperBlock.html">SuperBlock</a></tt>
+<dt><tt><a href="javadoc/SuperBlock.html">SuperBlock</a></tt>
 <dd>
 is a structure and collection of methods for representing
 the superblock on the disk.  In our implementation, the
