@@ -1,4 +1,4 @@
-/*
+package src;/*
  * $Id: mkdir.java,v 1.7 2001/10/07 23:23:23 rayo Exp $
  */
 
