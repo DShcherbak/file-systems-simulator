@@ -465,7 +465,7 @@ public class Kernel
       // return (EACCES) if the file does not exist and the directory
       // in which it is to be created is not writable
 
-      currIndexNode.setMode( mode ) ;
+      currIndexNode.setMode((short) ((short)mode&(~process.getUmask()))) ;
       currIndexNode.setNlink( (short)1 ) ;
 
       // allocate the next available inode from the file system
@@ -989,6 +989,29 @@ public class Kernel
     buf.copyIndexNode( indexNode ) ;
 
     return 0 ;
+  }
+
+  /**
+   * Change current process umask and return old.
+   * Simulates the unix system call:
+   *    * <pre>
+   *    *   mode_t umask(mode_t mask);
+   *    * </pre>
+   * @exception java.lang.Exception if any underlying action causes
+   * Exception to be thrown
+   */
+  public static short umask( short newUmask )
+          throws Exception
+  {
+    short prevUmask = process.getUmask();
+
+    //just to make sure
+    short umaskBitsFilter = (1 << 9) - 1;
+    newUmask = (short) (newUmask&umaskBitsFilter);
+
+    process.setUmask(newUmask);
+
+    return prevUmask;
   }
 
   /**
