@@ -335,7 +335,7 @@ public class FileSystem
    * @execption java.io.IOException if any exception occurs in an 
    * underlying operation on the "file system" file.
    */
-  public void writeIndexNode(IndexNode indexNode , short indexNodeNumber )
+  public void writeIndexNode( IndexNode indexNode , short indexNodeNumber )
     throws IOException
   {
     loadIndexNodeBlock( indexNodeNumber ) ;
@@ -357,7 +357,7 @@ public class FileSystem
     throws IOException
   {
     short neededIndexNodeBlock = (short)( indexNodeNumber / 
-      (blockSize / IndexNode.INDEX_NODE_SIZE));
+      ( blockSize / IndexNode.INDEX_NODE_SIZE ) ) ;
 
     if( currentIndexNodeBlock != neededIndexNodeBlock )
     {

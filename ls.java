@@ -136,16 +136,27 @@ public class ls
    * @param stat the stat containing the file's information
    */
 
-  private static String modeToOctalNumber(int mode) {
+  private static String modeToString(int mode) {
     StringBuffer s = new StringBuffer() ;
     for (int i = 0; i < 3; ++i) {
-      int cur_bit = 0;
-      for (int j = 0; j < 3; ++j) {
-        cur_bit += (mode & 1) << j;
-        mode /= 2;
-
+      if ((mode & 1) == 1) {
+        s.append("x");
+      } else {
+        s.append("-");
       }
-      s.append(Integer.toString(cur_bit));
+      mode >>= 1;
+      if ((mode & 1) == 1) {
+        s.append("w");
+      } else {
+        s.append("-");
+      }
+      mode >>= 1;
+      if ((mode & 1) ==1) {
+        s.append("r");
+      } else {
+        s.append("-");
+      }
+      mode >>= 1;
     }
     s.reverse();
     return s.toString();
@@ -180,7 +191,7 @@ public class ls
 
     int mode = stat.getMode();
 
-    t = modeToOctalNumber(mode);
+    t = modeToString(mode);
     for( int i = 0 ; i < 5 - t.length() ; i ++ )
       s.append( ' ' ) ;
     s.append( t ) ;
