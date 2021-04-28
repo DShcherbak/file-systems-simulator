@@ -315,7 +315,6 @@ public class IndexNode
     buffer[offset+2] = (byte)( nlink >>> 8 ) ;
     buffer[offset+3] = (byte)nlink ;
 
-
     // write uid
     buffer[offset+4] = (byte)( uid >>> 8 ) ;
     buffer[offset+5] = (byte)uid ;
