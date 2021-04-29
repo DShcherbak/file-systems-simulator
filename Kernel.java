@@ -1472,6 +1472,87 @@ Some internal methods.
     return 0 ;
   }
 
+  private static boolean canChangeOwner(IndexNode indexNode) {
+    return process.getUid() == 0;
+  }
+
+  private static boolean canChangeGroup(IndexNode indexNode) {
+    return process.getUid() == 0 || process.getUid() == indexNode.getUid();
+  }
+
+  private static short setCorrectMode(short mode){
+    if (mode < 0){
+      return -1;
+    }
+    short owner = (short) (mode / 100);
+    short group = (short) ((mode % 100) / 10);
+    short everyone = (short) (mode % 10);
+    if(owner > 7 || group > 7 || everyone > 7)
+      return -1;
+    return (short) (everyone + group * 8 + owner * 64);
+  }
+
+  public static int chown(String pathname, short owner, short group) throws Exception {
+
+    String fullPath = getFullPath(pathname);
+
+    IndexNode indexNode = new IndexNode();
+    short indexNodeNumber = findIndexNode(fullPath, indexNode);
+
+    if(indexNodeNumber < 0)
+      return -2; // file not found
+
+    boolean can_change_uid = canChangeOwner(indexNode);
+    if(!can_change_uid && owner >= 0){
+      return -1; //want to change uid but have no rights for it
+    }
+
+    boolean can_change_gid = canChangeGroup(indexNode);
+    if(!can_change_gid && group >= 0){
+      return -1; //want to change gid but have no rights for it
+    }
+
+    if(can_change_uid) {
+      if(owner >= 0) {
+        indexNode.setUid(owner);
+      }
+    }
+
+    if(can_change_gid) {
+      if(group >= 0) {
+        indexNode.setGid(group);
+      }
+    }
+
+    openFileSystems[ROOT_FILE_SYSTEM].writeIndexNode(indexNode, indexNodeNumber);
+    return 0;
+  }
+
+  public static int chmod(String pathname, short mode) throws Exception {
+
+    String fullPath = getFullPath(pathname);
+
+    IndexNode indexNode = new IndexNode();
+    short indexNodeNumber = findIndexNode(fullPath, indexNode);
+
+    if(indexNodeNumber < 0)
+      return -2;
+
+    boolean can_change_uid = canChangeGroup(indexNode);
+    short oct = setCorrectMode(mode);
+    if(oct < 0){
+      return -3;
+    }
+    if(!can_change_uid){
+      return -1;
+    }
+    indexNode.setMode(oct);
+
+
+    openFileSystems[ROOT_FILE_SYSTEM].writeIndexNode(indexNode, indexNodeNumber);
+    return 0;
+  }
+
   /** 
    * Get the full path for a file by adding
    * the working directory for the current process
