@@ -1,7 +1,4 @@
-<<<<<<< HEAD:find.java
-=======
 import java.util.ArrayList;
->>>>>>> 02942c5135df22526f5eac364f70e5bd9837380c:src/find.java
 /**
  * @author Ivan Ramyk
  */
