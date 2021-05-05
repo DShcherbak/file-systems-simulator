@@ -1711,7 +1711,6 @@ Some internal methods.
   public static int link(String resoursePath, String linkPath)
           throws Exception {
 
-    // start of 1
     String fullLinkPath = getFullPath(linkPath) ;
 
     StringBuffer dirname = new StringBuffer( "/" ) ;
@@ -1753,16 +1752,28 @@ Some internal methods.
       }
     }
 
-    /// end of 1
+    if (indexNodeNumber >= 0) {
+      System.out.println( PROGRAM_NAME +
+              ": file " + linkPath + " already exists.");
+      return -1;
+    }
 
-
-    // start of 2
     String fullResoursePath = getFullPath( resoursePath ) ;
 
     IndexNode fileIndexNode = new IndexNode() ;
     indexNodeNumber = findIndexNode(fullResoursePath , fileIndexNode) ;
-    if( indexNodeNumber < 0 )
+    short type = (short)( fileIndexNode.getMode() & Kernel.S_IFMT ) ;
+    if (type == Kernel.S_IFDIR ) {
+      System.err.println( PROGRAM_NAME +
+              ": unable to create link for directory" );
+      return -1;
+    }
+
+    if( indexNodeNumber < 0 ) {
+      System.err.println( PROGRAM_NAME +
+              ": file " + resoursePath + " does not exist" );
       return -1 ;
+    }
     fileIndexNode.setNlink((short) (fileIndexNode.getNlink() + 1));
 
     openFileSystems[ ROOT_FILE_SYSTEM ].writeIndexNode(fileIndexNode, indexNodeNumber);
@@ -1790,7 +1801,7 @@ Some internal methods.
       if( status < 0 )
       {
         System.err.println( PROGRAM_NAME +
-                ": error reading directory in creat" ) ;
+                ": error reading directory in link" ) ;
         System.exit( EXIT_FAILURE ) ;
       }
       else if( status == 0 )
@@ -1812,7 +1823,7 @@ Some internal methods.
           if( seek_status < 0 )
           {
             System.err.println( PROGRAM_NAME +
-                    ": error during seek in creat" ) ;
+                    ": error during seek in link" ) ;
             System.exit( EXIT_FAILURE ) ;
           }
           writedir( dir , newDirectoryEntry ) ;

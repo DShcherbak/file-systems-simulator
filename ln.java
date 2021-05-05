@@ -1,26 +1,4 @@
-/*
- * $Id: ls.java,v 1.6 2001/10/12 02:14:31 rayo Exp $
- */
 
-/*
- * $Log: ls.java,v $
- * Revision 1.6  2001/10/12 02:14:31  rayo
- * better formatting
- *
- * Revision 1.5  2001/10/07 23:48:55  rayo
- * added author javadoc tag
- *
- */
-
-/**
- * A simple directory listing program for a simulated file system.
- * <p>
- * Usage:
- * <pre>
- *   java ls <i>path-name</i> ...
- * </pre>
- * @author Ray Ontko
- */
 public class ln
 {
     /**

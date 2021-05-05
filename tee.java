@@ -48,7 +48,7 @@ public class tee
   /**
    * The file mode to use when creating the output file.
    */
-  public static final short OUTPUT_MODE = 0700 ;
+  public static final short OUTPUT_MODE = 0666 ;
 
   /**
    * Copies standard input to standard output and to a file.
